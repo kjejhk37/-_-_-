@@ -3,7 +3,7 @@ function GetAlbumId(AlbumNum, selectNum) {
 }
 
 /** id인 Text에 하이퍼 링크 비슷한것을 넣어 둘것인데 대상을 selectNum와 AlbumNum로 정함 */
-function SetMainMenuFunction(id, selectNum, AlbumNum) {
+function SetAlbumSelectFunction(id, selectNum, AlbumNum) {
   const Text = document.getElementById(id);
   if (!Text) return;
 
@@ -29,7 +29,7 @@ function CreateAlbum(AlbumArrayNum) {
     MainAlbumDiv.id = 'MainAlbum_' + AlbumArrayNum;
     MainAlbumDiv.style.width = '1900px';
     MainAlbumDiv.style.height = '800px';
-    MainAlbumDiv.style.border = '1px solid red';
+    //MainAlbumDiv.style.border = '1px solid red';
     MainAlbumDiv.style.marginTop = '100px';
     MainAlbumDiv.style.marginLeft = '20px';
     MainAlbumDiv.style.position = 'absolute';
@@ -59,8 +59,10 @@ function CreateAlbum(AlbumArrayNum) {
   ArrayAlbumArrayNum[AlbumArrayNum]++;
 
   newDiv.style.display = 'inline-block'; // 올바른 속성 값
-  newDiv.style.border = '1px solid red';
+  newDiv.style.border = '2px solid White';
+  newDiv.style.outline = '2px solid Black';
   newDiv.style.backgroundColor = 'gray';
+  newDiv.style.boxShadow = '10px 10px 5px rgba(0, 0, 0, 0.7)';
   newDiv.style.width = '100%';
   newDiv.style.height = '100%';
   newDiv.style.position = 'absolute';
@@ -105,14 +107,22 @@ function SelectAlbum(AlbumArrayNum, newDiv) {
   );
 
   let TempPosALnum = 1;
+  let Find = false;
 
   PosAlbums.forEach((posalbum) => {
     if (posalbum.contains(newDiv)) {
       posalbum.style.zIndex = '' + 10;
       scrollToDiv(newDiv.id);
       newDiv.style.animation = 'Select 1s';
+      Find = true;
+      TempPosALnum = 1;
     } else {
-      posalbum.style.zIndex = '' + (10 - TempPosALnum);
+      if (Find == false) {
+        posalbum.style.zIndex = '' + (1 + TempPosALnum);
+      } else {
+        posalbum.style.zIndex = '' + (10 - TempPosALnum);
+      }
+
       TempPosALnum++;
     }
   });
